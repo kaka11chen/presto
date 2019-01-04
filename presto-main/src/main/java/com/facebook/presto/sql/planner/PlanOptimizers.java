@@ -34,6 +34,7 @@ import com.facebook.presto.sql.planner.iterative.rule.DesugarCurrentUser;
 import com.facebook.presto.sql.planner.iterative.rule.DesugarLambdaExpression;
 import com.facebook.presto.sql.planner.iterative.rule.DesugarTryExpression;
 import com.facebook.presto.sql.planner.iterative.rule.DetermineJoinDistributionType;
+import com.facebook.presto.sql.planner.iterative.rule.DistinctAggregationToGroupBy;
 import com.facebook.presto.sql.planner.iterative.rule.EliminateCrossJoins;
 import com.facebook.presto.sql.planner.iterative.rule.EvaluateZeroLimit;
 import com.facebook.presto.sql.planner.iterative.rule.EvaluateZeroSample;
@@ -260,6 +261,7 @@ public class PlanOptimizers
                         statsCalculator,
                         estimatedExchangesCostCalculator,
                         new CanonicalizeExpressions().rules()),
+                new UnaliasSymbolReferences(),
                 new IterativeOptimizer(
                         ruleStats,
                         statsCalculator,
@@ -281,6 +283,7 @@ public class PlanOptimizers
                                         new RemoveTrivialFilters(),
                                         new ImplementFilteredAggregations(),
                                         new SingleDistinctAggregationToGroupBy(),
+                                        new DistinctAggregationToGroupBy(metadata.getFunctionRegistry()),
                                         new MultipleDistinctAggregationToMarkDistinct(),
                                         new ImplementBernoulliSampleAsFilter(),
                                         new MergeLimitWithDistinct(),
