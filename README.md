@@ -98,5 +98,5 @@ If no Javascript dependencies have changed (i.e., no changes to `package.json`),
 To simplify iteration, you can also run in `watch` mode, which automatically re-compiles when changes to source files are detected:
 
     yarn --cwd presto-main/src/main/resources/webapp/src run watch
-
 To iterate quickly, simply re-build the project in IntelliJ after packaging is complete. Project resources will be hot-reloaded and changes are reflected on browser refresh.
+test7
